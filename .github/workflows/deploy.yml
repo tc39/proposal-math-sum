@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+permissions:
+  contents: write
 
 jobs:
   deploy:
@@ -16,7 +18,7 @@ jobs:
         node-version: 16
     - run: npm ci
     - run: npm run build
-    - uses: JamesIves/github-pages-deploy-action@v4.3.3
+    - uses: JamesIves/github-pages-deploy-action@v4.4.3
       with:
         branch: gh-pages
         folder: dist
