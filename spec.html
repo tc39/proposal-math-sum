@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<pre class="metadata">
+title: Math.sum
+status: proposal
+stage: 0
+copyright: false
+contributors: Kevin Gibbons
+</pre>
+
+<div id="metadata-block">
+  <h1>Contributing to this Proposal</h1>
+  <p>You can discuss this proposal <a href="https://github.com/bakkot/proposal-math-sum">on GitHub</a>.</p>
+</div>
+
+<emu-clause id="sec-proposal-intro">
+  <h1>Introduction</h1>
+  <p>This proposal adds a method for summing multiple numbers.</p>
+</emu-clause>
+
+<emu-clause id="sec-math.sum">
+  <h1>Math.sum ( ..._args_ )</h1>
+  <p>Given zero or more arguments, this function calls ToNumber on each of the arguments and returns their sum with at most constant error from floating-point operations.</p>
+  <p>It performs the following steps when called:</p>
+  <emu-alg>
+    1. Let _coerced_ be a new empty List.
+    1. For each element _arg_ of _args_, do
+      1. Let _n_ be ? ToNumber(_arg_).
+      1. Append _n_ to _coerced_.
+    1. If _coerced_ is empty, return *+0*<sub>𝔽</sub>.
+    1. If _coerced_ contains *NaN*, return *NaN*.
+    1. If _coerced_ contains *+∞*<sub>𝔽</sub>, then
+      1. If _coerced_ contains *-∞*<sub>𝔽</sub>, return *NaN*.
+      1. Return *+∞*<sub>𝔽</sub>.
+    1. If _coerced_ contains *-∞*<sub>𝔽</sub>, then
+      1. Return *-∞*<sub>𝔽</sub>.
+    1. If every element of _coerced_ is *-0*<sub>𝔽</sub>, return *-0*<sub>𝔽</sub>.
+    1. Return an implementation-approximated value for the sum of the elements of _coerced_. Implementations are recommended to use algorithm such as <a href="https://web.archive.org/web/20220804051351/https://www.mat.univie.ac.at/~neum/scan/01.pdf">that of Neumaier</a> to achieve better error than naive floating-point summation.
+  </emu-alg>
+  <p>The *"length"* property of this function is *2*<sub>𝔽</sub>.</p>
+</emu-clause>
