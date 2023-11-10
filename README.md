@@ -55,3 +55,7 @@ We should have seperate methods for summing BigInts. I'd vote for `BigInt.sum`. 
 ## What about product?
 
 That comes up much less so I'm not currently proposing it.
+
+## What should the `.length` of the function be?
+
+`Math.max` uses 2, so that's what I'm defaulting to, but it doesn't really matter and if you feel strongly it should be some other thing feel free to send a PR making the change and a case for it.
