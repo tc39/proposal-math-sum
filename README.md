@@ -34,28 +34,28 @@ Math.sum(...values); // 1
 
 I'm hoping to get away with leaving it up to implementations. If we have to pick one, I would go with Neumaier's variant of Kahan summation. Python [adopted it](https://github.com/python/cpython/issues/100425) for their built-in `sum` in 3.12, with about 25-30% slowdown relative to naive summation. I think that's easily worth it.
 
-## What if I have a long list, such that I can't reasonably put it on the stack with `...args`?
+### What if I have a long list, such that I can't reasonably put it on the stack with `...args`?
 
 I'd like to have a version which works with iterables. Unfortunately `Math.max` sets precedent that such methods are variadic, so `Math.sum` probably will need to be as well.
 
 In my ideal world we would also add `Math.maxFrom` and `Math.sumFrom` (or some other, better names) which operate on iterables instead of varargs.
 
-## Should this coerce things to number, or throw if given something which is not a number?
+### Should this coerce things to number, or throw if given something which is not a number?
 
 I want to [stop coercing things](https://github.com/tc39/how-we-work/pull/136), but unfortunately `Math.max` is pretty strong precedent that we do coercion.
 
 I'm hopeful that engines will be able to have a fast path when they know everything is a Number already, at least for the iterable-taking version. 
 
-## Should this work with BigInts?
+### Should this work with BigInts?
 
 [No](https://github.com/tc39/proposal-bigint-math/issues/23) - it's important that `Math.sum()` returns the Number `0`, which means that `5n + Math.sum(...bigints)` would throw when `bigints` is empty, which would be bad.
 
 We should have seperate methods for summing BigInts. I'd vote for `BigInt.sum`. Maybe as part of this proposal, maybe not.
 
-## What about product?
+### What about product?
 
 That comes up much less so I'm not currently proposing it.
 
-## What should the `.length` of the function be?
+### What should the `.length` of the function be?
 
 `Math.max` uses 2, so that's what I'm defaulting to, but it doesn't really matter and if you feel strongly it should be some other thing feel free to send a PR making the change and a case for it.
