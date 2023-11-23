@@ -48,7 +48,7 @@ I'm hopeful that engines will be able to have a fast path when they know everyth
 
 ### Should this work with BigInts?
 
-[No](https://github.com/tc39/proposal-bigint-math/issues/23) - it's important that `Math.sum()` returns the Number `0`, which means that `5n + Math.sum(...bigints)` would throw when `bigints` is empty, which would be bad.
+[No](https://github.com/tc39/proposal-bigint-math/issues/23) - it's important that `Math.sum()` returns the Number `-0`, which means that `5n + Math.sum(...bigints)` would throw when `bigints` is empty, which would be bad.
 
 We should have seperate methods for summing BigInts. I'd vote for `BigInt.sum`. Maybe as part of this proposal, maybe not.
 
