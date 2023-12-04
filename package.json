@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@tc39/ecma262-biblio": "2.1.2657",
-    "ecmarkup": "18.1.0"
+    "ecmarkup": "18.1.0",
+    "xoshiro128": "^0.1.0"
   }
 }
