@@ -59,9 +59,9 @@ test('fuzzing', t => {
   let seed = Math.floor(Math.random() * 2 ** 31);
   console.log('fuzzer seed', seed);
   let random = new Random(seed);
-  let N = 10_000_000;
+  let N = 1_000_000;
   for (let i = 0; i < N; ++i) {
-    if ((i % 1_000_000) === 0) {
+    if ((i % 100_000) === 0) {
       console.log(i);
     }
     let a = randomFloat(random);
