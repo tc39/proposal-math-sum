@@ -108,6 +108,7 @@ export function sum(iterable) {
     if (x !== 0) {
       partials.push(x);
     }
+    console.log(partials);
   }
 
   // compute the exact sum of partials, stopping once we lose precision
@@ -176,3 +177,8 @@ export function sum(iterable) {
 
   return hi;
 }
+
+let naiveSum = ar => ar.reduce((a, b) => a+b);
+let v = [0, 1, 2, 1000, 0.77, 0.4123, 1274123]
+console.log(sum(v));
+console.log(naiveSum(v));
