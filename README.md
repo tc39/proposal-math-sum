@@ -8,31 +8,33 @@ Authors: Kevin Gibbons
 
 Champions: Kevin Gibbons
 
-This proposal is at Stage 0 of [the TC39 process](https://tc39.es/process-document/) - it has not yet been presented to committee.
+This proposal is at Stage 1 of [the TC39 process](https://tc39.es/process-document/): the proposal is under consideration.
 
 ## Motivation
 
 Summing a list is a very common operation and is one of the few remaining use cases for `Array.prototype.reduce`. Better to let users express that operation directy.
 
-Also, floating point summation can get more precise results than the naive `.reduce((a, b) => a + b, 0)` approach using [more clever algorithms](https://en.wikipedia.org/wiki/Kahan_summation_algorithm) with very little overhead, a fact which few JavaScript programmers are aware of (and even among those who are, most wouldn't bother doing it). We can make it easy to reach for the better option.
+Also, summing a list of floating point numbers can be done more precisely than the naive `.reduce((a, b) => a + b, 0)` approach using more clever algorithms, a fact which few JavaScript programmers are aware of (and even among those who are, most wouldn't bother doing it). We can make it easy to reach for the better option.
 
 ## Proposal
 
-Add a variadic `Math.sum` method which returns the sum of its arguments using a more clever algorithm than naive summation.
+Add a variadic `Math.sum` method which returns the sum of its arguments using a more precise algorithm than naive summation.
 
 ```js
-let values = Array.from({ length: 10 }).fill(0.1);
+let values = [1e20, 0.1, -1e20];
 
-values.reduce((a, b) => a + b, 0); // 0.9999999999999999
+values.reduce((a, b) => a + b, 0); // 0
 
-Math.sum(...values); // 1
+Math.sum(...values); // 0.1
 ````
 
 ## Questions
 
 ### Which algorithm?
 
-I'm hoping to get away with leaving it up to implementations. If we have to pick one, I would go with Neumaier's variant of Kahan summation. Python [adopted it](https://github.com/python/cpython/issues/100425) for their built-in `sum` in 3.12, with about 25-30% slowdown relative to naive summation. I think that's easily worth it.
+Instead of specifying any particular algorithm, this proposal requires the maximally correct answer - that is, the answer you'd get if you did arbitrary-precision arithmetic, then converted the result back to floats. This can be done without actually needing arbitrary-precision arithmetic. One way of doing this is given in [Shewchuk '96](./Shewchuk-robust-arithmetic.pdf), which I've [implemented in JS](./polyfill/polyfill.mjs) (plus some details to handle intermediate overflow). Other strategies are possible.
+
+Python's [`math.fsum`](https://docs.python.org/3/library/math.html#math.fsum) is currently implemented using the same algorithm (though without handling intermediate overflow).
 
 ### What if I have a long list, such that I can't reasonably put it on the stack with `...args`?
 
