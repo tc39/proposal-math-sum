@@ -108,7 +108,6 @@ export function sum(iterable) {
     if (x !== 0) {
       partials.push(x);
     }
-    console.log(partials);
   }
 
   // compute the exact sum of partials, stopping once we lose precision

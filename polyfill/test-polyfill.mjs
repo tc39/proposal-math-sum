@@ -32,7 +32,7 @@ function check(data) {
   assert.strictEqual(actual, expected);
 }
 
-test.only('basic ability to handle intermediate overflows', t => {
+test('basic ability to handle intermediate overflows', t => {
   check([1e308, 1e308, 0.1, 0.1, 1e30, 0.1, -1e30, -1e308, -1e308]);
   check([1e30, 0.1, -1e30]);
 });
