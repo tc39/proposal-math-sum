@@ -20,7 +20,7 @@ contributors: Kevin Gibbons
 
 <emu-clause id="sec-math.sumexact">
   <h1>Math.sumExact ( _items_ )</h1>
-  <p>Given an iterable of values, this function calls ToNumber on each value and returns their sum.</p>
+  <p>Given an iterable of Numbers, this function sums each value in the iterable and returns their sum. If any value is not a Number it throws a *TypeError* exception.</p>
   <p>It performs the following steps when called:</p>
   <emu-alg>
     1. Perform ? RequireObjectCoercible(_items_).
