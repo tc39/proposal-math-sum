@@ -25,7 +25,7 @@ let values = [1e20, 0.1, -1e20];
 
 values.reduce((a, b) => a + b, 0); // 0
 
-Math.sumExact(...values); // 0.1
+Math.sumExact(values); // 0.1
 ````
 
 ## Questions
