@@ -1,4 +1,4 @@
-# Math.sum
+# Math.sumExact
 
 A proposal to add a method to sum multiple values to JavaScript.
 
@@ -8,7 +8,7 @@ Authors: Kevin Gibbons
 
 Champions: Kevin Gibbons
 
-This proposal is at Stage 1 of [the TC39 process](https://tc39.es/process-document/): the proposal is under consideration.
+This proposal is at stage 2 of [the TC39 process](https://tc39.es/process-document/): the proposal has been accepted as a draft.
 
 ## Motivation
 
@@ -18,14 +18,14 @@ Also, summing a list of floating point numbers can be done more precisely than t
 
 ## Proposal
 
-Add a variadic `Math.sum` method which returns the sum of its arguments using a more precise algorithm than naive summation.
+Add a variadic `Math.sumExact` method which returns the sum of its arguments using a more precise algorithm than naive summation.
 
 ```js
 let values = [1e20, 0.1, -1e20];
 
 values.reduce((a, b) => a + b, 0); // 0
 
-Math.sum(...values); // 0.1
+Math.sumExact(...values); // 0.1
 ````
 
 ## Questions
@@ -36,28 +36,40 @@ Instead of specifying any particular algorithm, this proposal requires the maxim
 
 Python's [`math.fsum`](https://docs.python.org/3/library/math.html#math.fsum) is currently implemented using the same algorithm (though without handling intermediate overflow).
 
-### What if I have a long list, such that I can't reasonably put it on the stack with `...args`?
+### Iterable-taking or variadic?
 
-I'd like to have a version which works with iterables. Unfortunately `Math.max` sets precedent that such methods are variadic, so `Math.sum` probably will need to be as well.
+`Math.max` precedent suggests variadic, but that's really not what you want - once your lists get larger than a few tens of thousands of elements, you'll probably overflow the stack and get a RangeError.
 
-In my ideal world we would also add `Math.maxFrom` and `Math.sumFrom` (or some other, better names) which operate on iterables instead of varargs.
+So this proposal includes only an iterable-taking form.
+
+### Naming
+
+`Math.sum` is the obvious name, but it's not obvious that this going to be a different (slower) algorithm than naive summation. This is tentatively called `Math.sumExact` to call attention to that difference.
+
+Since it differs from `Math.max` in taking an iterable, we might want a name which calls attention to that as well, such as `sumExactFrom`. See [issue #3](https://github.com/tc39/proposal-math-sum/issues/3) for discussion.
 
 ### Should this coerce things to number, or throw if given something which is not a number?
 
-I want to [stop coercing things](https://github.com/tc39/how-we-work/pull/136), but unfortunately `Math.max` is pretty strong precedent that we do coercion.
+I want to [stop coercing things](https://github.com/tc39/how-we-work/pull/136), but `Math.max` is pretty strong precedent that we do coercion.
 
-I'm hopeful that engines will be able to have a fast path when they know everything is a Number already, at least for the iterable-taking version. 
+As currently specified it will reject non-number values, breaking with precedent.
+
+### Is the sum of an empty list 0 or -0?
+
+In some sense -0 is the right answer: that's the additive identity on floats.
+
+But in another sense the point is stick as close to real-number arithmetic as possible, and in the reals there is no -0.
+
+Python's `fsum` returns 0 when given an empty list.
+
+As currently specified this will return -0. This question remains open. See [issue #5](https://github.com/tc39/proposal-math-sum/issues/5) for discussion.
 
 ### Should this work with BigInts?
 
-[No](https://github.com/tc39/proposal-bigint-math/issues/23) - it's important that `Math.sum()` returns the Number `-0`, which means that `5n + Math.sum(...bigints)` would throw when `bigints` is empty, which would be bad.
+[No](https://github.com/tc39/proposal-bigint-math/issues/23) - it's important that `Math.sumExact()` returns the Number `-0` (or `0`), which means that `5n + Math.sumExact(bigints)` would throw when `bigints` is empty, which would be bad.
 
-We should have seperate methods for summing BigInts. I'd vote for `BigInt.sum`. Maybe as part of this proposal, maybe not.
+We could have seperate methods for summing BigInts. I'd vote for `BigInt.sum` or `BigInt.sumFrom`, depending on the outcome of the naming discussion above. But such a method will not be part of this proposal.
 
 ### What about product?
 
 That comes up much less so I'm not currently proposing it.
-
-### What should the `.length` of the function be?
-
-`Math.max` uses 2, so that's what I'm defaulting to, but it doesn't really matter and if you feel strongly it should be some other thing feel free to send a PR making the change and a case for it.
