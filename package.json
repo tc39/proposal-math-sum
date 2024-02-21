@@ -8,7 +8,7 @@
     "test": "node --test"
   },
   "dependencies": {
-    "@tc39/ecma262-biblio": "2.1.2657",
+    "@tc39/ecma262-biblio": "2.1.2697",
     "ecmarkup": "18.1.0",
     "xoshiro128": "^0.1.0"
   }
