@@ -18,7 +18,7 @@ Also, summing a list of floating point numbers can be done more precisely than t
 
 ## Proposal
 
-Add a variadic `Math.sumExact` method which returns the sum of its arguments using a more precise algorithm than naive summation.
+Add an iterable-taking `Math.sumExact` method which returns the sum of the values in the iterable using a more precise algorithm than naive summation.
 
 ```js
 let values = [1e20, 0.1, -1e20];
