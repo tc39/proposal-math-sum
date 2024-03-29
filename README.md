@@ -36,6 +36,8 @@ Instead of specifying any particular algorithm, this proposal requires the maxim
 
 Python's [`math.fsum`](https://docs.python.org/3/library/math.html#math.fsum) is currently implemented using the same algorithm (though without handling intermediate overflow).
 
+A more recent algorithm is given in [Fast exact summation using small and large superaccumulators](https://arxiv.org/abs/1505.05571) by Radford M. Neal, MIT-licensed code for which is available [here](https://gitlab.com/radfordneal/xsum).
+
 ### Iterable-taking or variadic?
 
 `Math.max` precedent suggests variadic, but that's really not what you want - once your lists get larger than a few tens of thousands of elements, you'll probably overflow the stack and get a RangeError.
