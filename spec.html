@@ -43,13 +43,13 @@ contributors: Kevin Gibbons
         1. Let _n_ be _next_.
         1. If _state_ is not ~not-a-number~, then
           1. If _n_ is *NaN*, set _state_ to ~not-a-number~.
-          1. If _n_ is *+∞*<sub>𝔽</sub>, then
+          1. Else if _n_ is *+∞*<sub>𝔽</sub>, then
             1. If _state_ is ~minus-infinity~, set _state_ to ~not-a-number~.
             1. Else, set _state_ to ~plus-infinity~.
-          1. If _n_ is *-∞*<sub>𝔽</sub>, then
+          1. Else if _n_ is *-∞*<sub>𝔽</sub>, then
             1. If _state_ is ~plus-infinity~, set _state_ to ~not-a-number~.
             1. Else, set _state_ to ~minus-infinity~.
-          1. If _n_ is not *-0*<sub>𝔽</sub> and _state_ is either ~minus-zero~ or ~finite~, then
+          1. Else if _n_ is not *-0*<sub>𝔽</sub> and _state_ is either ~minus-zero~ or ~finite~, then
             1. Set _state_ to ~finite~.
             1. Set _sum_ to _sum_ + ℝ(_n_).
     1. If _state_ is ~not-a-number~, return *NaN*.
