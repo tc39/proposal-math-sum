@@ -37,7 +37,7 @@ contributors: Kevin Gibbons
           1. Let _error_ be ThrowCompletion(a newly created *RangeError* object).
           1. Return ? IteratorClose(_iteratorRecord_, _error_).
         1. NOTE: The above case is not expected to be reached in practice and is included only so that implementations may rely on inputs being "reasonably sized" without violating this specification.
-        1. If _next_ is not a number, then
+        1. If _next_ is not a Number, then
           1. Let _error_ be ThrowCompletion(a newly created *TypeError* object).
           1. Return ? IteratorClose(_iteratorRecord_, _error_).
         1. Let _n_ be _next_.
