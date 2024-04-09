@@ -55,7 +55,7 @@ export function sum(iterable) {
     }
     if (!Object.is(value, -0)) {
       if (!Number.isFinite(value)) {
-        return drainNonFiniteValue(val);
+        return drainNonFiniteValue(value);
       }
       partials.push(value);
       break;

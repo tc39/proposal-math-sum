@@ -43,6 +43,9 @@ test('special cases', t => {
   assert.strictEqual(mathSum([-0, -0, -0, 0]), 0);
   assert.strictEqual(mathSum([1, Infinity, -1e308]), Infinity);
   assert.strictEqual(mathSum([1, Infinity, -1e308, -Infinity]), NaN);
+  assert.strictEqual(mathSum([Infinity]), Infinity);
+  assert.strictEqual(mathSum([-Infinity]), -Infinity);
+  assert.strictEqual(mathSum([-Infinity, Infinity]), NaN);
 });
 
 test('1, 2 element lists', t => {
