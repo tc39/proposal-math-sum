@@ -8,7 +8,7 @@ Authors: Kevin Gibbons
 
 Champions: Kevin Gibbons
 
-This proposal is at stage 2.7 of [the TC39 process](https://tc39.es/process-document/): the proposal is approved in principle and now requires tests.
+This proposal is at stage 2.7 of [the TC39 process](https://tc39.es/process-document/): the proposal is approved in principle. [Tests have been written](https://github.com/tc39/test262/pull/4049); the next step is to get committee approval that the tests are adequate, at which point it will be ready for implementations (stage 3).
 
 ## Motivation
 
