@@ -12,7 +12,7 @@ This proposal is at stage 3 of [the TC39 process](https://tc39.es/process-docume
 
 ## Motivation
 
-Summing a list is a very common operation and is one of the few remaining use cases for `Array.prototype.reduce`. Better to let users express that operation directy.
+Summing a list is a very common operation and is one of the few remaining use cases for `Array.prototype.reduce`. Better to let users express that operation directly.
 
 Also, summing a list of floating point numbers can be done more precisely than the naive `.reduce((a, b) => a + b, 0)` approach using more clever algorithms, a fact which few JavaScript programmers are aware of (and even among those who are, most wouldn't bother doing it). We can make it easy to reach for the better option.
 
