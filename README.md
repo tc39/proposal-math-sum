@@ -58,9 +58,9 @@ It is -0. This is the floating point additive identity. This choice ensures that
 
 ### Should this work with BigInts?
 
-[No](https://github.com/tc39/proposal-bigint-math/issues/23) - it's important that `Math.sumPrecise()` returns the Number `-0` (or `0`), which means that `5n + Math.sumPrecise(bigints)` would throw when `bigints` is empty, which would be bad.
+[No](https://github.com/tc39/proposal-bigint-math/issues/23) - it's important that `Math.sumPrecise([])` returns the Number `-0` (or `0`), which means that `5n + Math.sumPrecise(bigints)` would throw when `bigints` is empty, which would be bad.
 
-We could have seperate methods for summing BigInts. I'd vote for `BigInt.sum` or `BigInt.sumFrom`, depending on the outcome of the naming discussion above. But such a method will not be part of this proposal.
+We could have separate methods for summing BigInts. I'd vote for `BigInt.sum` or `BigInt.sumFrom`, depending on the outcome of the naming discussion above. But such a method will not be part of this proposal.
 
 ### What about product?
 
