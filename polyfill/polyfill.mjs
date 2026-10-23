@@ -14,7 +14,7 @@ const PENULTIMATE_DOUBLE = 1.79769313486231550856e+308; // i.e. (2**1024 - 2 * 2
 // exponent 11111001010, significand all 0s
 const MAX_ULP = MAX_DOUBLE - PENULTIMATE_DOUBLE; // 1.99584030953471981166e+292, i.e. 2**(1023 - 52)
 
-// prerequisite: Math.abs(x) >= Math.abs(y)
+// prerequisite: x == 0 or Math.abs(x) >= Math.abs(y)
 function twosum(x, y) {
   let hi = x + y;
   let lo = y - (hi - x);
@@ -155,7 +155,7 @@ export function sum(iterable) {
     let x = hi;
     let y = partials[n];
     --n;
-    // assert: Math.abs(x) > Math.abs(y)
+    // assert: Math.abs(x) > Math.abs(y), except on the first iteration in the no-overflow case, in which case x is 0 (but this is fine)
     0, { hi, lo } = twosum(x, y);
     if (lo !== 0) {
       break;
